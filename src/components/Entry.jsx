@@ -1,7 +1,8 @@
-const Entry = ({ importData }) => {
+const Entry = ({ importData, filter }) => {
+  console.log(importData);
   return (
     <div className="flex flex-col mt-4 w-full px-4 md:px-10 lg:px-12">
-      {importData.hits &&
+      {importData.hits.length > 0 ? (
         importData.hits.map((item) => (
           <div
             className="flex flex-row justify-between items-center mb-4 border p-2 shadow-md lg:p-4 lg:shadow-lg lg:mb-8"
@@ -26,7 +27,7 @@ const Entry = ({ importData }) => {
                 </small>
               </a>
             </div>
-            <div className="flex justify-center items-center lg:w-[250px] w-16 h-16  ">
+            <div className="flex justify-center items-center lg:w-[250px] w-16 h-16 mx-1 ">
               {/* Image Container */}
               <img
                 src={
@@ -42,7 +43,16 @@ const Entry = ({ importData }) => {
               />
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <p className="font-Poppins mx-auto py-9">
+          We found<span className="font-bold"> nothing </span> matching{" "}
+          <span className="font-bold">
+            <br></br>
+            {filter}
+          </span>
+        </p>
+      )}
     </div>
   );
 };
