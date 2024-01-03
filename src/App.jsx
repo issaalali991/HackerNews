@@ -7,9 +7,14 @@ function App() {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    fetch(`http://hn.algolia.com/api/v1/search?query=${filter}&tags=story`)
+    fetch(
+      `http://hn.algolia.com/api/v1/search?query=${encodeURIComponent(filter)}`
+    )
       .then((response) => response.json())
-      .then((data) => setImportData(data))
+      .then((data) => {
+        setImportData(data);
+        console.log(data);
+      })
       .catch((error) => console.error(error));
 
     return () => {
@@ -31,19 +36,26 @@ function App() {
         <div className="flex flex-col justify-start items-start">
           {/* Container für Title und Infos */}
           <a href={item.url}>
-            <h4 className="text-lg font-bold">{item.title}</h4>
+            <h4 className="text-lg font-bold">
+              {item.title || item.story_title}
+            </h4>
           </a>
           <small className="text-xs text-gray-600">
             posted {new Date(item.created_at_i * 1000).toLocaleDateString()} |
-            by {item.author} | {item.num_comments} comments
+            by {item.author} |{" "}
+            {item.num_comments > 0 ? item.num_comments + " comment(s)" : ""}
           </small>
         </div>
         <div className="w-16 h-16">
           {/* Image Container */}
           <img
             src={
-              item.url
-                ? `https://logo.clearbit.com/${item.url.split("/")[2]}`
+              item.url || item.story_url
+                ? `https://logo.clearbit.com/${
+                    item.url
+                      ? item.url.split("/")[2]
+                      : item.story_url.split("/")[2]
+                  }`
                 : "https://fakeimg.pl/90x60"
             }
             alt=""
