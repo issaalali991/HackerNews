@@ -3,10 +3,12 @@ import "./App.css";
 import Entry from "./components/Entry";
 import Header from "./components/Header";
 import Pagination from "./components/Pagination";
+import BeatLoader from "react-spinners/BeatLoader";
 
 function App() {
   const [importData, setImportData] = useState([]);
   const [filter, setFilter] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -15,6 +17,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setImportData(data);
+        setIsLoaded(true);
       })
       .catch((error) => console.error(error));
 
@@ -25,6 +28,7 @@ function App() {
 
   const submitForm = (e) => {
     e.preventDefault();
+    setIsLoaded(false);
     setFilter(e.target.elements[0].value);
   };
 
@@ -33,7 +37,9 @@ function App() {
       <div className="flex flex-col justify-center items-center">
         {/* Main Container der alles andere beinhalten wird */}
         <Header submitForm={submitForm} />
-        {importData.hits && <Entry importData={importData} filter={filter} />}
+
+        {!isLoaded && <BeatLoader color="#36d7b7" className="my-4" />}
+        {isLoaded && <Entry importData={importData} filter={filter} />}
         <Pagination />
       </div>
     </>
