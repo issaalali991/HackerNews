@@ -5,8 +5,11 @@ export default {
 
 ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Poppins: ["Poppins", "sans-serif"],
+    },
   },
   plugins: [],
 }
-
+}
