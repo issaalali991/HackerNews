@@ -10,7 +10,7 @@ const Header = ({ submitForm, setFilter, setIsLoaded }) => {
         {/* Header Container für Logo / Name */}
         <button
           onClick={() => {
-            setIsLoaded(false);
+            inputValue && setIsLoaded(false);
             setFilter("");
             setInputValue("");
           }}
