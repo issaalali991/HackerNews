@@ -5,7 +5,7 @@ const Entry = ({ importData, filter }) => {
       {importData.hits.length > 0 ? (
         importData.hits.map((item) => (
           <div
-            className="flex flex-row justify-between items-center mb-4 border p-2 shadow-md lg:p-4 lg:shadow-lg lg:mb-8"
+            className="flex flex-row justify-between items-center mb-4 border p-2 shadow-md lg:p-4 lg:shadow-lg lg:mb-8 lg:h-[230px]"
             key={item.story_id || item.points}
           >
             {/* Container für einzelne News mit Img in selber Reihe */}
