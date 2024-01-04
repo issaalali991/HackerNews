@@ -26,17 +26,21 @@ function App() {
     };
   }, [filter]);
 
-  const submitForm = (e) => {
+  const submitForm = (e, inputValue) => {
     e.preventDefault();
     setIsLoaded(false);
-    setFilter(e.target.elements[0].value);
+    setFilter(inputValue);
   };
 
   return (
     <>
       <div className="flex flex-col justify-center items-center">
         {/* Main Container der alles andere beinhalten wird */}
-        <Header submitForm={submitForm} />
+        <Header
+          submitForm={submitForm}
+          setFilter={setFilter}
+          setIsLoaded={setIsLoaded}
+        />
 
         {!isLoaded && <BeatLoader color="#36d7b7" className="my-4" />}
         {isLoaded && <Entry importData={importData} filter={filter} />}
