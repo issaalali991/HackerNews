@@ -26,11 +26,15 @@ function App() {
       .catch((error) => console.error(error));
   }, [filter]);
 
-  const submitForm = (e) => {
+  const submitForm = (e, inputValue) => {
     e.preventDefault();
     setIsLoaded(false);
+<<<<<<< HEAD
     setFilter(e.target.elements[0].value);
     setCurrentPage(1);
+=======
+    setFilter(inputValue);
+>>>>>>> origin/main
   };
 
   const handlePageChange = (newPage) => {
@@ -44,7 +48,16 @@ function App() {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
+<<<<<<< HEAD
         <Header submitForm={submitForm} />
+=======
+        {/* Main Container der alles andere beinhalten wird */}
+        <Header
+          submitForm={submitForm}
+          setFilter={setFilter}
+          setIsLoaded={setIsLoaded}
+        />
+>>>>>>> origin/main
 
         {!isLoaded && <BeatLoader color="#36d7b7" className="my-4" />}
         {isLoaded && <Entry importData={displayedEntries} filter={filter} />}

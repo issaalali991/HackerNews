@@ -1,6 +1,6 @@
 const Entry = ({ importData, filter }) => {
   if (!importData) {
-    return null; // Render nothing if importData is not available yet
+    return null; 
   }
 
   if (importData.length === 0) {

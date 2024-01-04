@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 const Pagination = ({ currentPage, entriesPerPage, totalEntries, onPageChange }) => {
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
@@ -21,6 +22,25 @@ const Pagination = ({ currentPage, entriesPerPage, totalEntries, onPageChange })
         
         <button key={totalPages} onClick={() => onPageChange(endPage)}>{" "}letzte Page </button>
      
+=======
+import React from "react";
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/minimal.css';
+import { useState } from "react";
+
+const Pagination = () => {
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  return (
+    <div className="hidden lg:block">
+      <ResponsivePagination
+      current={currentPage}
+      total={totalPages}
+      onPageChange={setCurrentPage}
+    />
+>>>>>>> origin/main
     </div>
   );
 };
