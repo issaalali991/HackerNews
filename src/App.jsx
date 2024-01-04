@@ -9,44 +9,62 @@ function App() {
   const [importData, setImportData] = useState([]);
   const [filter, setFilter] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const entriesPerPage = 4;
 
   useEffect(() => {
+    
+
     fetch(
       `http://hn.algolia.com/api/v1/search?query=${encodeURIComponent(filter)}`
     )
       .then((response) => response.json())
       .then((data) => {
-        setImportData(data);
+        setImportData(data.hits);
         setIsLoaded(true);
       })
       .catch((error) => console.error(error));
-
-    return () => {
-      //
-    };
   }, [filter]);
 
   const submitForm = (e) => {
     e.preventDefault();
     setIsLoaded(false);
     setFilter(e.target.elements[0].value);
+    setCurrentPage(1);
   };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const displayedEntries = importData.slice(indexOfFirstEntry, indexOfLastEntry);
 
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        {/* Main Container der alles andere beinhalten wird */}
         <Header submitForm={submitForm} />
 
         {!isLoaded && <BeatLoader color="#36d7b7" className="my-4" />}
-        {isLoaded && <Entry importData={importData} filter={filter} />}
-        <Pagination />
+        {isLoaded && <Entry importData={displayedEntries} filter={filter} />}
+        {isLoaded && (
+          <Pagination
+            currentPage={currentPage}
+            entriesPerPage={entriesPerPage}
+            totalEntries={importData.length}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
     </>
   );
 }
 
 export default App;
+
+
+
 
 //textauszüge
 //     <p className='lg:hidden text-sm py-2'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, obcaecati</p>
