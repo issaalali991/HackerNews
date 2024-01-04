@@ -1,7 +1,20 @@
+import React from "react";
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/minimal.css';
+import { useState } from "react";
+
 const Pagination = () => {
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
   return (
     <div className="hidden lg:block">
-      <small>1 | 2 | 3 | 4 | 5 | 6</small>
+      <ResponsivePagination
+      current={currentPage}
+      total={totalPages}
+      onPageChange={setCurrentPage}
+    />
     </div>
   );
 };
